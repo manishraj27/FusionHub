@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  repository_dispatch:
+    types: [submodule-update]
 
 jobs:
   update-submodules:
@@ -46,5 +48,5 @@ jobs:
           git add .
           git diff --staged --quiet || git commit -m "Update submodule references [skip ci]"
           git push origin main
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
