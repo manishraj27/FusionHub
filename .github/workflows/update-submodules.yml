@@ -13,8 +13,8 @@ jobs:
       - name: Checkout Repository with Submodules
         uses: actions/checkout@v3
         with:
-          submodules: recursive
           token: ${{ secrets.PAT_TOKEN }}
+          submodules: recursive
 
       - name: Update Submodules to Latest Commit
         run: |
