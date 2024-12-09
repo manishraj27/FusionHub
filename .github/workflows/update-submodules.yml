@@ -16,9 +16,13 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
           submodules: recursive
 
+      - name: Configure Git for Authentication
+        run: |
+          git config --global url."https://${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - name: Update Submodules to Latest Commit
         run: |
-          git submodule foreach 'git pull origin $(git rev-parse --abbrev-ref HEAD)'
+          git submodule foreach --recursive 'git pull origin $(git rev-parse --abbrev-ref HEAD)'
           git add .
           git commit -m "Update submodule references" || echo "No changes to commit"
           git push
