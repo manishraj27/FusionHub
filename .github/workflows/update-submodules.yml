@@ -1,0 +1,30 @@
+name: Auto-Update Submodule References
+
+on:
+  push:
+    # Trigger the workflow whenever changes are pushed to any submodule repository
+    repositories:
+      - manishraj27/APIGateway
+      - manishraj27/AdminService
+      - manishraj27/EurekaServer
+      - manishraj27/StudentService
+      - manishraj27/FRONTEND
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the main repository with submodules
+      - name: Checkout Main Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive  # Ensure submodules are also checked out
+
+      # Step 2: Update all submodules to the latest commit
+      - name: Update Submodules
+        run: |
+          git submodule update --remote
+          git add .
+          git commit -m "Auto-updated submodule references to latest commits"
+          git push
