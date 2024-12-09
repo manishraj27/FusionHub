@@ -2,24 +2,24 @@ name: Auto-Update Submodule References
 
 on:
   push:
-    # Trigger the workflow whenever changes are pushed to any submodule repository
     repositories:
-      - manishraj27/APIGateway
-      - manishraj27/AdminService
-      - manishraj27/EurekaServer
-      - manishraj27/StudentService
-      - manishraj27/FRONTEND
+      - manishraj27/FusionHub-BACKEND-APIGateway
+      - manishraj27/FusionHub-BACKEND-AdminService
+      - manishraj27/FusionHub-BACKEND-StudentService
+      - manishraj27/FusionHub-BACKEND-EurekaServer
+      - manishraj27/FusionHub-FRONTEND
 
 jobs:
   update-submodules:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the main repository with submodules
+      # Step 1: Checkout the main repository, including submodules
       - name: Checkout Main Repository
         uses: actions/checkout@v3
         with:
-          submodules: recursive  # Ensure submodules are also checked out
+          submodules: recursive
+          token: ${{ secrets.PAT_TOKEN }}  # Use the PAT to authenticate
 
       # Step 2: Update all submodules to the latest commit
       - name: Update Submodules
