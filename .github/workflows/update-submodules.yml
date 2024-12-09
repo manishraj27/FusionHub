@@ -15,6 +15,12 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Configure Git to Auto-Reconcile Divergent Branches
+        run: |
+          git config submodule.recurse true
+          git config pull.rebase false  # Change this based on your preferred strategy
+          git config --global pull.rebase false  # For global configuration
+
       - name: Update Submodules
         run: |
           git submodule update --init --recursive
