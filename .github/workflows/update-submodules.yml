@@ -14,6 +14,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
+          token: ${{ secrets.PAT_TOKEN }}  # Reference the PAT_TOKEN secret
 
       - name: Configure Git User
         run: |
@@ -22,35 +23,23 @@ jobs:
 
       - name: Update Submodules
         run: |
-          # Initialize and update submodules
-          git submodule update --init --recursive
+          git submodule init
+          git submodule update
 
-          # Loop through each submodule
           git submodule foreach '
-            # Fetch latest changes
             git fetch origin
-
-            # Get current branch name
             BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-            # Try to merge, but if conflicts occur, prefer our changes
             git merge -X ours --no-edit origin/$BRANCH || {
-              # If merge fails, abort and reset to origin
               git merge --abort
               git reset --hard origin/$BRANCH
             }
-
-            # Stage any changes
             git add -A
           '
 
       - name: Commit and Push Updates
         run: |
-          # Stage all changes in the main repo
           git add .
-          
-          # Commit if there are changes
           git diff --staged --quiet || git commit -m "Update submodule references [skip ci]"
-
-          # Push changes using the GITHUB_TOKEN
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Ensure the token is passed as an environment variable
