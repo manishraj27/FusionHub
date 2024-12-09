@@ -14,11 +14,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-          token: ${{ secrets.PAT_TOKEN }}  # Use the PAT for authentication
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Update Submodules to Latest Commit
         run: |
           git submodule foreach 'git pull origin $(git rev-parse --abbrev-ref HEAD)'
           git add .
-          git commit -m "Update submodule references"
+          git commit -m "Update submodule references" || echo "No changes to commit"
           git push
