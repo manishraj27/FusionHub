@@ -36,10 +36,15 @@ jobs:
             git add -A
           '
 
+      - name: Pull Latest Changes
+        run: |
+          # Pull the latest changes from the remote to avoid conflicts
+          git pull origin main --rebase
+
       - name: Commit and Push Updates
         run: |
           git add .
           git diff --staged --quiet || git commit -m "Update submodule references [skip ci]"
-          git push
+          git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Ensure the token is passed as an environment variable
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
