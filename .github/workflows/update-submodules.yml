@@ -53,4 +53,4 @@ jobs:
           git diff --staged --quiet || git commit -m "Update submodule references [skip ci]"
 
           # Push changes using the GITHUB_TOKEN
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
