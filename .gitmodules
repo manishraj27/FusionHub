@@ -1,15 +1,15 @@
 [submodule "BACKEND/EurekaServer"]
 	path = BACKEND/EurekaServer
-	url = https://${{ secrets.PAT_TOKEN }}@github.com/manishraj27/FusionHub-BACKEND-EurekaServer
+	url = https://github.com/manishraj27/FusionHub-BACKEND-EurekaServer
 [submodule "BACKEND/APIGateway"]
 	path = BACKEND/APIGateway
-	url = https://${{ secrets.PAT_TOKEN }}@github.com/manishraj27/FusionHub-BACKEND-APIGateway
+	url = https://github.com/manishraj27/FusionHub-BACKEND-APIGateway
 [submodule "BACKEND/StudentService"]
 	path = BACKEND/StudentService
-	url = https://${{ secrets.PAT_TOKEN }}@github.com/manishraj27/FusionHub-BACKEND-StudentService
+	url = https://github.com/manishraj27/FusionHub-BACKEND-StudentService
 [submodule "BACKEND/AdminService"]
 	path = BACKEND/AdminService
-	url = https://${{ secrets.PAT_TOKEN }}@github.com/manishraj27/FusionHub-BACKEND-AdminService
+	url = https://github.com/manishraj27/FusionHub-BACKEND-AdminService
 [submodule "FRONTEND"]
 	path = FRONTEND
-	url = https://${{ secrets.PAT_TOKEN }}@github.com/manishraj27/FusionHub-FRONTEND
+	url = https://github.com/manishraj27/FusionHub-FRONTEND
