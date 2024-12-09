@@ -1,30 +1,24 @@
-name: Auto-Update Submodule References
+name: Update Submodules
 
 on:
   push:
-    repositories:
-      - manishraj27/FusionHub-BACKEND-APIGateway
-      - manishraj27/FusionHub-BACKEND-AdminService
-      - manishraj27/FusionHub-BACKEND-StudentService
-      - manishraj27/FusionHub-BACKEND-EurekaServer
-      - manishraj27/FusionHub-FRONTEND
+    branches:
+      - main
 
 jobs:
   update-submodules:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the main repository, including submodules
-      - name: Checkout Main Repository
+      - name: Checkout Repository with Submodules
         uses: actions/checkout@v3
         with:
           submodules: recursive
-          token: ${{ secrets.PAT_TOKEN }}  # Use the PAT to authenticate
+          token: ${{ secrets.PAT_TOKEN }}  # Use the PAT for authentication
 
-      # Step 2: Update all submodules to the latest commit
-      - name: Update Submodules
+      - name: Update Submodules to Latest Commit
         run: |
-          git submodule update --remote
+          git submodule foreach 'git pull origin $(git rev-parse --abbrev-ref HEAD)'
           git add .
-          git commit -m "Auto-updated submodule references to latest commits"
+          git commit -m "Update submodule references"
           git push
